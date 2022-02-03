@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SpringBoot2RestApiApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SpringBoot2RestApiApplication.class, args);
     }
