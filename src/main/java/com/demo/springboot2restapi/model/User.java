@@ -23,6 +23,6 @@ public class User {
     private String firstName;
     @Column(unique = true, length = 30, nullable = false)
     private String lastName;
-    @Column(unique = true, length = 15, nullable = false)
+    @Column(unique = true, length = 15)
     private String phoneNumber;
 }
