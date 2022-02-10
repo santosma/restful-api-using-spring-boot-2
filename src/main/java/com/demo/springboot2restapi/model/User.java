@@ -1,12 +1,11 @@
 package com.demo.springboot2restapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
+@ToString
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,12 +16,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 6, message = "You provide a user name")
     @Column(unique = true, length = 50, nullable = false)
     private String userName;
-    @Column(unique = true, length = 50, nullable = false)
+
+    @Size(min = 2, message = "You provide a first name")
+    @Column(length = 50, nullable = false)
     private String firstName;
-    @Column(unique = true, length = 30, nullable = false)
+
+    @Size(min = 2, message = "You provide a last name")
+    @Column(length = 30, nullable = false)
     private String lastName;
-    @Column(unique = true, length = 15)
+
+    @Column(length = 15)
     private String phoneNumber;
 }

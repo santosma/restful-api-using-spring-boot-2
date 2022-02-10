@@ -1,7 +1,7 @@
 package com.demo.springboot2restapi.service;
 
+import com.demo.springboot2restapi.exceptions.UserNameNotFoundException;
 import com.demo.springboot2restapi.exceptions.UserNotFoundException;
-import com.demo.springboot2restapi.exceptions.UsernameExistException;
 import com.demo.springboot2restapi.model.User;
 import com.demo.springboot2restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,27 +21,27 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User createUser(User user) throws UsernameExistException {
+    public User createUser(User user) throws UserNotFoundException {
         User existingUser = userRepository.findByUserName(user.getUserName());
 
-        if (existingUser != null)
-            throw new UsernameExistException("Username already exists");
-
+        if (existingUser != null) {
+            throw new UserNotFoundException("Username already exists");
+        }
         return userRepository.save(user);
     }
 
-    public Optional<User> getUserById(Long id) throws UserNotFoundException {
+    public Optional<User> getUserById(Long id) throws UserNameNotFoundException {
         Optional<User> user = userRepository.findById(id);
         if (!user.isPresent()) {
-            throw new UserNotFoundException("User not found in repository");
+            throw new UserNameNotFoundException("User not found in repository");
         }
         return user;
     }
 
-    public User updateUserById(Long id, User user) throws UserNotFoundException {
+    public User updateUserById(Long id, User user) throws UserNameNotFoundException {
         Optional<User> possibleUser = userRepository.findById(id);
         if (!possibleUser.isPresent()) {
-            throw new UserNotFoundException("User not found in repository, cannot update");
+            throw new UserNameNotFoundException("User not found in repository, cannot update");
         }
         user.setId(id);
         return userRepository.save(user);
