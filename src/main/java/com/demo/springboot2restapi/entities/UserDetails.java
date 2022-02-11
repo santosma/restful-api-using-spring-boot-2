@@ -1,4 +1,4 @@
-package com.demo.springboot2restapi.model;
+package com.demo.springboot2restapi.entities;
 
 import lombok.*;
 

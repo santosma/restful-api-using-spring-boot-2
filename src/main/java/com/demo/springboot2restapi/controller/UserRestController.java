@@ -2,7 +2,7 @@ package com.demo.springboot2restapi.controller;
 
 import com.demo.springboot2restapi.exceptions.UserNameNotFoundException;
 import com.demo.springboot2restapi.exceptions.UserNotFoundException;
-import com.demo.springboot2restapi.model.User;
+import com.demo.springboot2restapi.entities.User;
 import com.demo.springboot2restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,16 +21,17 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @Validated
+@RequestMapping(value = "/users")
 public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @PostMapping("/create-user")
+    @PostMapping
     public ResponseEntity<Void> createUser(@Valid @RequestBody User user, UriComponentsBuilder uriCompBuilder) throws UserNotFoundException {
         try {
             userService.createUser(user);
@@ -42,7 +43,7 @@ public class UserRestController {
         }
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("{id}")
     public Optional<User> getUserById(@PathVariable("id") @Min(1) Long id) {
         try {
             return userService.getUserById(id);
@@ -52,7 +53,7 @@ public class UserRestController {
 
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public User updateUserById(@PathVariable("id") Long id, @RequestBody User user) throws UserNameNotFoundException {
         try {
             return userService.updateUserById(id, user);
@@ -71,7 +72,7 @@ public class UserRestController {
     //UserName based methods
     //================================================
 
-    @GetMapping("users/username/{userName}")
+    @GetMapping("/username/{userName}")
     public User getByUserName(@PathVariable("userName") String userName) throws UserNameNotFoundException {
         User user = userService.getByUserName(userName);
         if (user == null){

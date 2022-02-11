@@ -2,7 +2,7 @@ package com.demo.springboot2restapi.service;
 
 import com.demo.springboot2restapi.exceptions.UserNameNotFoundException;
 import com.demo.springboot2restapi.exceptions.UserNotFoundException;
-import com.demo.springboot2restapi.model.User;
+import com.demo.springboot2restapi.entities.User;
 import com.demo.springboot2restapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

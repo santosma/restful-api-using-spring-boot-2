@@ -1,9 +1,10 @@
-package com.demo.springboot2restapi.model;
+package com.demo.springboot2restapi.entities;
 
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @ToString
 @Getter
@@ -31,4 +32,8 @@ public class User {
 
     @Column(length = 15)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
 }
