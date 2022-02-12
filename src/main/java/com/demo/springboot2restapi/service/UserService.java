@@ -43,7 +43,7 @@ public class UserService {
         if (!possibleUser.isPresent()) {
             throw new UserNameNotFoundException("User not found in repository, cannot update");
         }
-        user.setId(id);
+        user.setUserId(id);
         return userRepository.save(user);
     }
 

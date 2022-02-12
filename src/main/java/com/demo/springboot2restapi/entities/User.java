@@ -1,6 +1,7 @@
 package com.demo.springboot2restapi.entities;
 
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -13,10 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "USER")
-public class User {
+public class User extends RepresentationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private Long userId;
 
     @Size(min = 6, message = "You provide a user name")
     @Column(unique = true, length = 50, nullable = false)

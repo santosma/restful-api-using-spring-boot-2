@@ -1,8 +1,8 @@
 package com.demo.springboot2restapi.controller;
 
+import com.demo.springboot2restapi.entities.User;
 import com.demo.springboot2restapi.exceptions.UserNameNotFoundException;
 import com.demo.springboot2restapi.exceptions.UserNotFoundException;
-import com.demo.springboot2restapi.entities.User;
 import com.demo.springboot2restapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -36,8 +36,8 @@ public class UserRestController {
         try {
             userService.createUser(user);
             HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(uriCompBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri());
-            return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+            headers.setLocation(uriCompBuilder.path("/users/{id}").buildAndExpand(user.getUserId()).toUri());
+            return new ResponseEntity<>(headers, HttpStatus.CREATED);
         } catch(UserNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }
@@ -50,7 +50,6 @@ public class UserRestController {
         } catch (UserNameNotFoundException ex) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
         }
-
     }
 
     @PutMapping("/{id}")
